@@ -5,4 +5,6 @@ dist/
 *.war
 *.ear
 
+.DS_Store
+
 hs_err_pid*
