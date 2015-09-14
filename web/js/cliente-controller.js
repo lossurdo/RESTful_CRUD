@@ -1,9 +1,6 @@
 var app = angular.module('clienteApp', []);
 app.controller('ClienteController', function ($scope, $http) {
     
-    $scope.listaClientes = null;
-    $scope.existemDados = false;
-    
     $scope.salvar = function () {
         console.log($scope.fields);
         $http({
