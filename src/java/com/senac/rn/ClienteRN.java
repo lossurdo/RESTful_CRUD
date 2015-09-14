@@ -16,8 +16,8 @@ public class ClienteRN extends CrudGenericoRest<Cliente> {
     }
 
     @Override
-    public List<Cliente> listar(Cliente obj) {
-        return clienteBD.listar(obj);
+    public List<Cliente> pesquisar(Cliente obj) {
+        return clienteBD.pesquisar(obj);
     }
 
     @Override
@@ -32,12 +32,17 @@ public class ClienteRN extends CrudGenericoRest<Cliente> {
     
     @Override
     public Cliente consultarPK(String pk) {
-        return clienteBD.consultarPK(pk);
+        return clienteBD.consultar(new Cliente(Integer.parseInt(pk)));
     }
 
     @Override
     public void excluir(Cliente obj) {
         clienteBD.excluir(obj);
+    }
+
+    @Override
+    public void excluirPK(String pk) {
+        excluir(new Cliente(Integer.parseInt(pk)));
     }
 
 }

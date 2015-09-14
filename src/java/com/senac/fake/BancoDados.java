@@ -35,8 +35,7 @@ public class BancoDados implements CrudGenerico<Cliente> {
         return consultarPK(obj.getCodigo().toString());
     }
 
-    @Override
-    public Cliente consultarPK(String pk) {
+    private Cliente consultarPK(String pk) {
         for (Cliente c : listaCliente) {
             if (c.equals(new Cliente(Integer.parseInt(pk)))) {
                 return c;
@@ -51,7 +50,7 @@ public class BancoDados implements CrudGenerico<Cliente> {
     }
 
     @Override
-    public List<Cliente> listar(Cliente obj) {
+    public List<Cliente> pesquisar(Cliente obj) {
         if(obj==null) {
             return new ArrayList<>(listaCliente);
         }
@@ -70,11 +69,6 @@ public class BancoDados implements CrudGenerico<Cliente> {
         listaCliente.remove(obj);
         listaCliente.add(obj);
         return obj;
-    }
-
-    @Override
-    public List<Cliente> todos() {
-        return listar(null);
     }
 
 }

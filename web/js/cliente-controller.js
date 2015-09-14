@@ -18,7 +18,7 @@ app.controller('ClienteController', function ($scope, $http) {
     };
     
     $scope.todos = function() {
-        $http.get('/RESTful_CRUD/rest/cliente/todos').success(function (data) {
+        $http.get('/RESTful_CRUD/rest/cliente').success(function (data) {
             $scope.listaClientes = data;
             $scope.existemDados = true;
         });
@@ -32,9 +32,8 @@ app.controller('ClienteController', function ($scope, $http) {
 
     $scope.excluir = function(cli) {
         $http({
-            method: 'POST',
-            data: cli,
-            url: '/RESTful_CRUD/rest/cliente/excluir',
+            method: 'DELETE',
+            url: '/RESTful_CRUD/rest/cliente/excluir/' + cli.codigo,
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);

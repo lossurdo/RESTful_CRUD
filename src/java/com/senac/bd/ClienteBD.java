@@ -13,18 +13,13 @@ public class ClienteBD implements CrudGenerico<Cliente> {
     }
 
     @Override
-    public Cliente consultarPK(String pk) {
-        return BancoDados.getInstance().consultarPK(pk);
-    }
-
-    @Override
     public void excluir(Cliente obj) {
         BancoDados.getInstance().excluir(obj);
     }
 
     @Override
-    public List<Cliente> listar(Cliente obj) {
-        return BancoDados.getInstance().listar(obj);
+    public List<Cliente> pesquisar(Cliente obj) {
+        return BancoDados.getInstance().pesquisar(obj);
     }
 
     @Override
@@ -32,9 +27,4 @@ public class ClienteBD implements CrudGenerico<Cliente> {
         return BancoDados.getInstance().salvar(obj);
     }
 
-    @Override
-    public List<Cliente> todos() {
-        return BancoDados.getInstance().todos();
-    }
-    
 }
