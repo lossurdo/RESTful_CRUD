@@ -1,5 +1,9 @@
 var app = angular.module('clienteApp', []);
 app.controller('ClienteController', function ($scope, $http) {
+    
+    $scope.listaClientes = null;
+    $scope.existemDados = false;
+    
     $scope.salvar = function () {
         console.log($scope.fields);
         $http({
@@ -18,7 +22,7 @@ app.controller('ClienteController', function ($scope, $http) {
     
     $scope.todos = function() {
         $http.get('/RESTful_CRUD/rest/cliente/todos').success(function (data) {
-            $scope.clientes = data;
+            $scope.listaClientes = data;
             $scope.existemDados = true;
         });
     };
