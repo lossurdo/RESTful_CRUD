@@ -1,7 +1,6 @@
 var appClienteController = angular.module('ClienteController', []);
 appClienteController.controller('ClienteController', function ($scope, $http) {
 
-    /*
     $scope.salvar = function () {
         console.log($scope.fields);
         $http({
@@ -44,5 +43,5 @@ appClienteController.controller('ClienteController', function ($scope, $http) {
             $scope.todos();
         });
     };
-    */
+
 });
