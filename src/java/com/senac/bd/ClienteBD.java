@@ -18,13 +18,13 @@ public class ClienteBD implements CrudGenerico<Cliente> {
     }
 
     @Override
-    public List<Cliente> pesquisar(Cliente obj) {
-        return BancoDados.getInstance().pesquisar(obj);
+    public Cliente salvar(Cliente obj) {
+        return BancoDados.getInstance().salvar(obj);
     }
 
     @Override
-    public Cliente salvar(Cliente obj) {
-        return BancoDados.getInstance().salvar(obj);
+    public List<Cliente> pesquisar(Cliente obj) {
+        return BancoDados.getInstance().pesquisar(obj);
     }
 
 }

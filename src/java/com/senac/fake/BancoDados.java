@@ -25,6 +25,21 @@ public class BancoDados implements CrudGenerico<Cliente> {
         return BancoDadosHolder.INSTANCE;
     }
 
+    @Override
+    public List<Cliente> pesquisar(Cliente obj) {
+        if(obj==null) {
+            return new ArrayList<>(listaCliente);
+        }
+        TreeSet<Cliente> lista = new TreeSet<>();
+        for (Cliente c : listaCliente) {
+            if (c.getCodigo().equals(obj.getCodigo())
+                    || (obj.getNome()!=null && c.getNome().contains(obj.getNome()))) {
+                lista.add(c);
+            }
+        }
+        return new ArrayList<>(lista);
+    }
+
     private static class BancoDadosHolder {
 
         private static final BancoDados INSTANCE = new BancoDados();
@@ -32,12 +47,8 @@ public class BancoDados implements CrudGenerico<Cliente> {
 
     @Override
     public Cliente consultar(Cliente obj) {
-        return consultarPK(obj.getCodigo().toString());
-    }
-
-    private Cliente consultarPK(String pk) {
         for (Cliente c : listaCliente) {
-            if (c.equals(new Cliente(Integer.parseInt(pk)))) {
+            if (c.equals(obj)) {
                 return c;
             }
         }
@@ -47,21 +58,6 @@ public class BancoDados implements CrudGenerico<Cliente> {
     @Override
     public void excluir(Cliente obj) {
         listaCliente.remove(obj);
-    }
-
-    @Override
-    public List<Cliente> pesquisar(Cliente obj) {
-        if(obj==null) {
-            return new ArrayList<>(listaCliente);
-        }
-        TreeSet<Cliente> lista = new TreeSet<>();
-        for (Cliente c : listaCliente) {
-            if (obj.getCodigo().equals(c.getCodigo())
-                    || c.getNome().contains(obj.getNome())) {
-                lista.add(c);
-            }
-        }
-        return new ArrayList<>(lista);
     }
 
     @Override

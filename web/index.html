@@ -1,130 +1,67 @@
 <!doctype html>
-<html class="no-js" lang="en" ng-app="myApp">
+<html class="no-js" lang="en" ng-app="clienteApp">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>RESTful_CRUD - Exemplo Completo utilizando-se de AngularJS e Jersey</title>
-
-        <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-        <script src="vendor/angular/angular.min.js"></script>
-        <script src="vendor/angular-route/angular-route.min.js"></script>
-
-        <script src="js/app.js"></script>
-        <script src="controller/template-controller.js"></script>
-        <script src="controller/cliente-controller.js"></script>
+        <title>RESTful_CRUD - Exemplo</title>
+        <link rel="stylesheet" href="css/foundation.css" />
+        <script src="js/vendor/modernizr.js"></script>
+        <script src="js/libs/angular.js/angular.js"></script>
+        <script src="js/cliente-controller.js"></script>
     </head>
-    <body ng-controller="IndexController">
+    <body ng-controller="ClienteController">
 
-        <div class="container">
-            <!--SEPARADOR-->
-            <div class="row">
-                <br /><br /><br /><br />
-            </div>
-            
-            <!--CABEÇALHO PRINCIPAL-->
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="#/">RESTful_CRUD</a>
-                        </div>
+        <div class="row">
+            <h1>CRUD REST</h1>
+            <h4 style="color:#ccc">Usando AngularJS e JAX RS</h4>
+        </div>
 
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav">
-                                <li class="active">
-                                    <a href="#">Link 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Link 2</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opções<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#">Opção 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Opção 2</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>
-                                    <a href="#">Logon/Logoff</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-            
-            <!--MENU DO SISTEMA-->
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="panel-group" id="panel-980377">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <a class="panel-title" data-toggle="collapse" data-parent="#panel-980377" href="#panel-element-897329">Cliente</a>
-                            </div>
-                            <div id="panel-element-897329" class="panel-collapse collapse in">
-                                <div class="panel-body">
-                                    <a href="#/pesquisar-cliente">Pesquisar</a>                                    
-                                </div>
-                                <div class="panel-body">
-                                    Novo
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-980377" href="#panel-element-683619">Fornecedor</a>
-                            </div>
-                            <div id="panel-element-683619" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    Pesquisar
-                                </div>
-                                <div class="panel-body">
-                                    Novo
-                                </div>
-                                <div class="panel-body">
-                                    Relatório
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!--PRINCIPAL - CORPO - DECK DE BOTÕES-->
-                <div class="col-md-10">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div ng-view></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!--RODAPÉ-->
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="navbar navbar-inverse navbar-fixed-bottom text-center" role="navigation">
-                        <div style="color:white">
-                            Por: Prof. Rafael Lossurdo<br/>
-                            Faculdade de Tecnologia Senac |
-                            Disciplina de Programação para Internet 2
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>        
+        <div class="row">
+            <!-- FORM -->
+            <div class="large-6 columns">
+                <form ng-submit="salvar()">
+                    <fieldset>
+                        <legend>Dados do Cliente</legend>
+                        <label>
+                            Código: 
+                            <input type="number" ng-model="fields.codigo" ng-required="true" placeholder="Ex. 12345" />
+                        </label>
 
-        <script src="vendor/jquery/dist/jquery.min.js"></script>
-        <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>        
+                        <label>
+                            Nome: 
+                            <input type="text" ng-model="fields.nome" ng-required="true" placeholder="João da Silva" />
+                        </label>
+
+                        <input class="button info radius small" type="button" value="Todos" ng-click="todos()" />
+                        <input class="button radius small" type="submit" value="Salvar" />
+                    </fieldset>
+                </form>
+            </div>
+
+            <!-- LISTA -->
+            <div class="large-6 columns">
+                <table ng-if="existemDados">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th colspan="2">Ações</th>
+                        </tr>
+                    </thead>                        
+                    <tbody>
+                        <tr ng-repeat="cliente in clientes | orderBy:'nome'">
+                            <td>{{cliente.codigo}}</td>
+                            <td>{{cliente.nome}}</td>
+                            <td><a href="#" class="button alert tiny radius" ng-click="excluir({{cliente}})">Excluir</a></td>
+                            <td><a href="#" class="button info tiny radius" ng-click="consultar({{cliente}})">Consultar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
+        <script>$(document).foundation();</script>
     </body>
 </html>
