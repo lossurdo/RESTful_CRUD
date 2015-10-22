@@ -9,7 +9,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 /**
  * 
@@ -25,6 +30,12 @@ import javax.ws.rs.core.MediaType;
  */
 public abstract class CrudGenericoREST<T> implements CrudGenerico<T> {
 
+    @Context
+    protected UriInfo uriInfo;
+    
+    @Context 
+    protected HttpHeaders headers;
+    
     @GET
     @Path("{pk}")
     @Produces(value = MediaType.APPLICATION_JSON)
@@ -49,7 +60,7 @@ public abstract class CrudGenericoREST<T> implements CrudGenerico<T> {
     @Consumes(value = MediaType.APPLICATION_JSON)
     @Override
     public abstract T salvar(T obj);
-
+    
     @PUT
     @Produces(value = MediaType.APPLICATION_JSON)
     @Consumes(value = MediaType.APPLICATION_JSON)
@@ -57,4 +68,16 @@ public abstract class CrudGenericoREST<T> implements CrudGenerico<T> {
         return salvar(obj);
     }
         
+    @GET
+    @Path("/teste")
+    public Response teste() {
+        validaPermissao();
+        return Response.ok().build();
+    }
+    
+    private void validaPermissao() {
+        if(headers.getHeaderString("senha")==null || !"teste".equals(headers.getHeaderString("senha"))) {
+            throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+        }
+    }
 }
