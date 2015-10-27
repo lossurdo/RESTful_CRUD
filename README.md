@@ -6,3 +6,5 @@ Exemplo de aplicação web Java contendo CRUD genérico REST baseado em entidade
 * Abrir projeto na IDE NetBeans 8+.
 
 * Deploy foi utilizando o Glassfish como servidor de aplicação, com isso, o JAX-RS já estava disponível e não precisou ser associado como biblioteca ao projeto.
+
+_Projeto utilizado em aula para demonstração dos web services REST. Faculdade de Tecnologia Senac. Disciplina de Programação para Internet II._
