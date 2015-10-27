@@ -13,8 +13,8 @@ public class ClienteBD implements CrudGenerico<Cliente> {
     }
 
     @Override
-    public void excluir(Cliente obj) {
-        BancoDados.getInstance().excluir(obj);
+    public boolean excluir(Cliente obj) {
+        return BancoDados.getInstance().excluir(obj);
     }
 
     @Override

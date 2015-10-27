@@ -56,8 +56,8 @@ public class BancoDados implements CrudGenerico<Cliente> {
     }
 
     @Override
-    public void excluir(Cliente obj) {
-        listaCliente.remove(obj);
+    public boolean excluir(Cliente obj) {
+        return listaCliente.remove(obj);
     }
 
     @Override
