@@ -3,21 +3,28 @@ package com.senac.bean;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Cliente implements Serializable, Comparable<Cliente> {
+public class GameOfThrones implements Serializable, Comparable<GameOfThrones> {
 
     private Integer codigo;
     private String nome;
+    private String descricao;
 
-    public Cliente() {
+    public GameOfThrones() {
     }
 
-    public Cliente(Integer codigo, String nome) {
+    public GameOfThrones(Integer codigo, String nome) {
         this.codigo = codigo;
         this.nome = nome;
     }
 
-    public Cliente(Integer codigo) {
+    public GameOfThrones(Integer codigo) {
         this.codigo = codigo;
+    }
+
+    public GameOfThrones(Integer codigo, String nome, String descricao) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.descricao = descricao;
     }
 
     public Integer getCodigo() {
@@ -36,9 +43,17 @@ public class Cliente implements Serializable, Comparable<Cliente> {
         this.nome = nome;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     @Override
     public String toString() {
-        return "Cliente{" + "codigo=" + codigo + ", nome=" + nome + '}';
+        return "GameOfThrones{" + "codigo=" + codigo + ", nome=" + nome + ", descricao=" + descricao + '}';
     }
 
     @Override
@@ -56,7 +71,7 @@ public class Cliente implements Serializable, Comparable<Cliente> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Cliente other = (Cliente) obj;
+        final GameOfThrones other = (GameOfThrones) obj;
         if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
@@ -64,7 +79,7 @@ public class Cliente implements Serializable, Comparable<Cliente> {
     }
 
     @Override
-    public int compareTo(Cliente cliente) {
+    public int compareTo(GameOfThrones cliente) {
         return cliente.getCodigo().compareTo(codigo);
     }
             

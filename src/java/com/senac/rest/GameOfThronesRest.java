@@ -1,39 +1,39 @@
 package com.senac.rest;
 
 import com.google.gson.Gson;
-import com.senac.bean.Cliente;
+import com.senac.bean.GameOfThrones;
 import com.senac.crud.CrudGenericoREST;
-import com.senac.rn.ClienteRN;
+import com.senac.rn.GameOfThronesRN;
 import java.net.URI;
 import java.util.List;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
-@Path("/cliente")
-public class ClienteRest extends CrudGenericoREST<Cliente> {
+@Path("/got")
+public class GameOfThronesRest extends CrudGenericoREST<GameOfThrones> {
 
-    private final ClienteRN clienteRN;
+    private final GameOfThronesRN gotRN;
 
-    public ClienteRest() {
-        this.clienteRN = new ClienteRN();
+    public GameOfThronesRest() {
+        this.gotRN = new GameOfThronesRN();
     }
 
     @Override
     public Response consultarPK(String pk) {
-        Cliente cli = clienteRN.consultar(new Cliente(Integer.parseInt(pk)));
+        GameOfThrones cli = gotRN.consultar(new GameOfThrones(Integer.parseInt(pk)));
         return gerarResponse(cli);
     }
 
     @Override
     public Response excluirPK(String pk) {
-        boolean ret = clienteRN.excluir(new Cliente(Integer.parseInt(pk)));
+        boolean ret = gotRN.excluir(new GameOfThrones(Integer.parseInt(pk)));
         return gerarResponse(ret);
     }
 
     @Override
-    public Response salvar(Cliente obj) {
-        Cliente cli = clienteRN.salvar(obj);
+    public Response salvar(GameOfThrones obj) {
+        GameOfThrones cli = gotRN.salvar(obj);
         URI uri = uriInfo.getAbsolutePathBuilder().path(cli.getCodigo().toString()).build();
         return Response.created(uri).build();        
     }
@@ -41,27 +41,27 @@ public class ClienteRest extends CrudGenericoREST<Cliente> {
     @Override
     public Response pesquisar(String json) {
         Gson g = new Gson();
-        Cliente cliente = g.fromJson(json, Cliente.class);
+        GameOfThrones cliente = g.fromJson(json, GameOfThrones.class);
         
-        List<Cliente> ret = clienteRN.pesquisar(cliente);
+        List<GameOfThrones> ret = gotRN.pesquisar(cliente);
         
         return gerarResponse(ret);
     }
 
     @Override
     public Response listar(Integer offset, Integer limit) {
-        List<Cliente> ret = clienteRN.pesquisar(null);
+        List<GameOfThrones> ret = gotRN.pesquisar(null);
         
         return gerarResponse(ret);
     }
 
     @Override
-    public Response gerarResponse(List<Cliente> obj) {
+    public Response gerarResponse(List<GameOfThrones> obj) {
         if (obj == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         
-        GenericEntity<List<Cliente>> lista = new GenericEntity<List<Cliente>>(obj) {
+        GenericEntity<List<GameOfThrones>> lista = new GenericEntity<List<GameOfThrones>>(obj) {
         };
         return Response.ok(lista).build();
     }
