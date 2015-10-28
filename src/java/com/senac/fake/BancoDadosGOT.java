@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
-public class BancoDados implements CrudGenerico<GameOfThrones> {
+public class BancoDadosGOT implements CrudGenerico<GameOfThrones> {
 
     private TreeSet<GameOfThrones> listaGOT;
 
-    private BancoDados() {
+    private BancoDadosGOT() {
         listaGOT = new TreeSet<>();
         
         // dados fake        
@@ -34,7 +34,7 @@ public class BancoDados implements CrudGenerico<GameOfThrones> {
         listaGOT.add(new GameOfThrones(1800, "Viserys Targaryen", "Viserys Targaryen é um príncipe exilado e o herdeiro da dinastia Targaryen. Conhecido como \"Rei Pedinte\" por procurar um exército para recapturar seu trono."));
     }
 
-    public static BancoDados getInstance() {
+    public static BancoDadosGOT getInstance() {
         return BancoDadosHolder.INSTANCE;
     }
 
@@ -55,7 +55,7 @@ public class BancoDados implements CrudGenerico<GameOfThrones> {
 
     private static class BancoDadosHolder {
 
-        private static final BancoDados INSTANCE = new BancoDados();
+        private static final BancoDadosGOT INSTANCE = new BancoDadosGOT();
     }
 
     @Override
