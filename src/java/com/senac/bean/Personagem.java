@@ -3,25 +3,25 @@ package com.senac.bean;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class GameOfThrones implements Serializable, Comparable<GameOfThrones> {
+public class Personagem implements Serializable, Comparable<Personagem> {
 
     private Integer codigo;
     private String nome;
     private String descricao;
 
-    public GameOfThrones() {
+    public Personagem() {
     }
 
-    public GameOfThrones(Integer codigo, String nome) {
+    public Personagem(Integer codigo, String nome) {
         this.codigo = codigo;
         this.nome = nome;
     }
 
-    public GameOfThrones(Integer codigo) {
+    public Personagem(Integer codigo) {
         this.codigo = codigo;
     }
 
-    public GameOfThrones(Integer codigo, String nome, String descricao) {
+    public Personagem(Integer codigo, String nome, String descricao) {
         this.codigo = codigo;
         this.nome = nome;
         this.descricao = descricao;
@@ -53,7 +53,7 @@ public class GameOfThrones implements Serializable, Comparable<GameOfThrones> {
 
     @Override
     public String toString() {
-        return "GameOfThrones{" + "codigo=" + codigo + ", nome=" + nome + ", descricao=" + descricao + '}';
+        return "Personagem{" + "codigo=" + codigo + ", nome=" + nome + ", descricao=" + descricao + '}';
     }
 
     @Override
@@ -71,7 +71,7 @@ public class GameOfThrones implements Serializable, Comparable<GameOfThrones> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final GameOfThrones other = (GameOfThrones) obj;
+        final Personagem other = (Personagem) obj;
         if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
@@ -79,8 +79,8 @@ public class GameOfThrones implements Serializable, Comparable<GameOfThrones> {
     }
 
     @Override
-    public int compareTo(GameOfThrones cliente) {
-        return cliente.getCodigo().compareTo(codigo);
+    public int compareTo(Personagem personagem) {
+        return personagem.getCodigo().compareTo(codigo);
     }
             
 }
