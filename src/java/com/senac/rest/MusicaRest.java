@@ -3,6 +3,7 @@ package com.senac.rest;
 import com.google.gson.Gson;
 import com.senac.bean.Musica;
 import com.senac.crud.CrudGenericoREST;
+import com.senac.infra.RNException;
 import com.senac.rn.MusicaRN;
 import java.net.URI;
 import java.util.List;
@@ -20,40 +21,61 @@ public class MusicaRest extends CrudGenericoREST<Musica> {
 
     @Override
     public Response consultarPK(String pk) {
-        Musica m = musicaRN.consultar(new Musica(Integer.parseInt(pk)));
-        return gerarResponse(m);
+        try {
+            Musica m = musicaRN.consultar(new Musica(Integer.parseInt(pk)));
+            return Response.ok(m).build();
+        } catch (RNException e) {
+            return exceptionParaResponse(e);
+        }
     }
 
     @Override
     public Response pesquisar(String json) {
-        Gson g = new Gson();
-        Musica m = g.fromJson(json, Musica.class);
-        
-        List<Musica> ret = musicaRN.pesquisar(m);
-        
-        return gerarResponse(ret);    
+        try {
+            Gson g = new Gson();
+            Musica m = g.fromJson(json, Musica.class);
+
+            List<Musica> ret = musicaRN.pesquisar(m);
+
+            return gerarResponseParaCollection(ret);    
+        } catch (RNException e) {
+            return exceptionParaResponse(e);
+        }
     }
 
     @Override
     public Response listar(Integer offset, Integer limit) {
-        List<Musica> ret = musicaRN.pesquisar(null);        
-        return gerarResponse(ret);
+        try {
+            List<Musica> ret = musicaRN.pesquisar(null);        
+            return gerarResponseParaCollection(ret);
+        } catch (RNException e) {
+            return exceptionParaResponse(e);
+        }
     }
 
     @Override
     public Response excluirPK(String pk) {
-        boolean ret = musicaRN.excluir(new Musica(Integer.parseInt(pk)));
-        return gerarResponse(ret);    }
-
-    @Override
-    public Response salvar(Musica obj) {
-        Musica m = musicaRN.salvar(obj);
-        URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(m.getId())).build();
-        return Response.created(uri).build();      
+        try {
+            musicaRN.excluir(new Musica(Integer.parseInt(pk)));
+            return Response.ok().build();
+        } catch (RNException e) {
+            return exceptionParaResponse(e);
+        }
     }
 
     @Override
-    public Response gerarResponse(List<Musica> obj) {
+    public Response salvar(Musica obj) {
+        try {
+            Musica m = musicaRN.salvar(obj);
+            URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(m.getId())).build();
+            return Response.created(uri).build();      
+        } catch (RNException e) {
+            return exceptionParaResponse(e);
+        }
+    }
+
+    @Override
+    public Response gerarResponseParaCollection(List<Musica> obj) {
         if (obj == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

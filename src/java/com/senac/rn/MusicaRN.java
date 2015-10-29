@@ -2,10 +2,10 @@ package com.senac.rn;
 
 import com.senac.bd.MusicaBD;
 import com.senac.bean.Musica;
-import com.senac.crud.CrudGenerico;
+import com.senac.crud.CrudGenericoRN;
 import java.util.List;
 
-public class MusicaRN implements CrudGenerico<Musica> {
+public class MusicaRN extends CrudGenericoRN<Musica> {
     private final MusicaBD musicaBD;
 
     public MusicaRN() {
