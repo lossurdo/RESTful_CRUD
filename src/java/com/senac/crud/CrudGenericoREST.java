@@ -1,5 +1,6 @@
 package com.senac.crud;
 
+import com.senac.infra.RNException;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -46,7 +47,7 @@ public abstract class CrudGenericoREST<T> {
 
     @GET
     @Produces(value = MediaType.APPLICATION_JSON)
-    public abstract Response listar(@QueryParam("offset") Integer offset, 
+    public abstract Response listar(@QueryParam("offset") Integer offset,
             @QueryParam("limit") Integer limit);
 
     @DELETE
@@ -65,24 +66,35 @@ public abstract class CrudGenericoREST<T> {
         return salvar(obj);
     }
 
-    protected Response gerarResponse(T obj) {
-        if (obj == null) {
+    /**
+     * Pela característica da conversão das coleções
+     * do Java em JSON, este método não permite
+     * implementação genérica; deve ser implementado
+     * nas classes filhas.
+     * 
+     * @param obj
+     * @return 
+     */
+    protected abstract Response gerarResponseParaCollection(List<T> obj);
+
+    /**
+     * Converte uma RNException para o Response necessário
+     * conforme tipo de erro de regra de negócio.
+     * 
+     * @see http://www.restapitutorial.com/lessons/httpmethods.html
+     * @param exception
+     * @return 
+     */
+    protected Response exceptionParaResponse(RNException exception) {
+        if (exception.getTipo().equals(RNException.Tipo.REGISTRO_JA_EXISTE)) {
+            return Response.status(Response.Status.CONFLICT).build();
+        } else if (exception.getTipo().equals(RNException.Tipo.REGISTRO_NAO_ENCONTRADO)) {
             return Response.status(Response.Status.NOT_FOUND).build();
-        } else {
-            return Response.ok(obj).build();
         }
-    }
-    
-    protected Response gerarResponse(boolean ok) {
-        if (ok) {
-            return Response.ok().build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+
+        return Response.serverError().build();                
     }
 
-    public abstract Response gerarResponse(List<T> obj);
-    
     // ---------------------------------------------------------------
     // EXEMPLO DE AUTENTICAÇÃO (A IMPLEMENTAR)
     @GET
