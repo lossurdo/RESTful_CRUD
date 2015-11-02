@@ -10,6 +10,6 @@ import javax.ws.rs.core.Application;
  * @author lossurdo
  */
 @ApplicationPath("rest")
-public class InitREST extends Application {
+public class InitRest extends Application {
 
 }

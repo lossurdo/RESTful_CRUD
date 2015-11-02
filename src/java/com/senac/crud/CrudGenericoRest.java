@@ -27,7 +27,7 @@ import javax.ws.rs.core.UriInfo;
  * @author lossurdo
  * @param <T>
  */
-public abstract class CrudGenericoREST<T> {
+public abstract class CrudGenericoRest<T> {
 
     @Context
     protected UriInfo uriInfo;

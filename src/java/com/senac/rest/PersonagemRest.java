@@ -2,7 +2,7 @@ package com.senac.rest;
 
 import com.google.gson.Gson;
 import com.senac.bean.Personagem;
-import com.senac.crud.CrudGenericoREST;
+import com.senac.crud.CrudGenericoRest;
 import com.senac.infra.RNException;
 import com.senac.rn.PersonagemRN;
 import java.net.URI;
@@ -12,7 +12,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
 @Path("/personagens")
-public class PersonagemRest extends CrudGenericoREST<Personagem> {
+public class PersonagemRest extends CrudGenericoRest<Personagem> {
 
     private final PersonagemRN personagemRN;
 

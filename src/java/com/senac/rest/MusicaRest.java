@@ -2,7 +2,7 @@ package com.senac.rest;
 
 import com.google.gson.Gson;
 import com.senac.bean.Musica;
-import com.senac.crud.CrudGenericoREST;
+import com.senac.crud.CrudGenericoRest;
 import com.senac.infra.RNException;
 import com.senac.rn.MusicaRN;
 import java.net.URI;
@@ -12,7 +12,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
 @Path("/musicas")
-public class MusicaRest extends CrudGenericoREST<Musica> {
+public class MusicaRest extends CrudGenericoRest<Musica> {
     private final MusicaRN musicaRN;
 
     public MusicaRest() {
