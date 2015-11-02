@@ -1,12 +1,14 @@
 var app = angular.module('personagemApp', []);
-app.controller('PersonagemController', function ($scope, $http) {
+app.controller('PersonagemController', function ($scope, $http, $location) {
+    
+    $scope.urlAtual = $location.absUrl();
     
     $scope.salvar = function () {
         console.log($scope.fields);
         $http({
             method: 'POST',
             data: $scope.fields,
-            url: '/RESTful_CRUD/rest/personagens',
+            url: $scope.urlAtual + 'rest/personagens',
             headers: {'Content-Type': 'application/json'}
         }).success(function (data, status, headers, config) {
             console.log(data);
@@ -18,21 +20,21 @@ app.controller('PersonagemController', function ($scope, $http) {
     };
         
     $scope.todos = function() {
-        $http.get('/RESTful_CRUD/rest/personagens').success(function (data) {
+        $http.get($scope.urlAtual + 'rest/personagens').success(function (data) {
             $scope.personagens = data;
             $scope.existemDados = true;
         });
     };
 
     $scope.consultar = function(personagem) {
-        $http.get('/RESTful_CRUD/rest/personagens/' + personagem.codigo).success(function (data) {
+        $http.get($scope.urlAtual + 'rest/personagens/' + personagem.codigo).success(function (data) {
             console.log(data);
             $scope.fields = data;
         });
     };
 
     $scope.excluir = function(personagem) {
-        $http.delete('/RESTful_CRUD/rest/personagens/' + personagem.codigo).success(function (data) {
+        $http.delete($scope.urlAtual + 'rest/personagens/' + personagem.codigo).success(function (data) {
             console.log(data);
             $scope.fields = data;
             $scope.todos();
